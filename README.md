@@ -12,15 +12,11 @@ A minimalist weather application built with JavaScript Vanilla.
 
 1. Clone the repository:
 
-   \`\`\`bash
    git clone https://github.com/DavidDevGt/weatherAppJS.git
-   \`\`\`
 
 2. Navigate to the project directory:
 
-   \`\`\`bash
    cd weather-app
-   \`\`\`
 
 3. Open \`index.html\` in your web browser.
 
@@ -32,7 +28,7 @@ A minimalist weather application built with JavaScript Vanilla.
 
 ## Technologies Used
 
-- JavaScript Vanilla
+- JavaScript
 - HTML
 - CSS
 
