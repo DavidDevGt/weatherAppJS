@@ -132,12 +132,14 @@ body {
     color: #093e5f;
     font-size: 22px;
     font-weight: 500;
+    padding-left: 1rem;
 }
 
 .weather-details p {
     color: #093e5f;
     font-size: 14px;
     font-weight: 500;
+    padding-left: 1rem;
 }
 
 .not-found {
