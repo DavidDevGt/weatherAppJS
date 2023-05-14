@@ -16,9 +16,9 @@ A minimalist weather application built with JavaScript Vanilla.
 
 2. Navigate to the project directory:
 
-   cd weather-app
+   cd weatherAppJS/
 
-3. Open \`index.html\` in your web browser.
+3. Open index.html in your web browser.
 
 ## Usage
 
