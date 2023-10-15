@@ -1,6 +1,7 @@
-// weather.js (en tu directorio de funciones de Netlify)
-require('dotenv').config();
-const fetch = require('node-fetch');
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+const fetch = require('node-fetch')
 
 exports.handler = async function(event, context) {
     try {
