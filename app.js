@@ -1,9 +1,11 @@
+// Seleccionar elementos del DOM
 const container = document.querySelector('.container');
 const search = document.querySelector('.search-box button');
 const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
 const error404 = document.querySelector('.not-found');
 
+// Click al icono para buscar
 search.addEventListener('click', () => {
 
     const APIKey = 'b2001df0bda301f474f11c7060282dba';
