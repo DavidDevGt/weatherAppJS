@@ -7,73 +7,83 @@ const error404 = document.querySelector('.not-found');
 
 // Click al icono para buscar
 search.addEventListener('click', () => {
-
-    const APIKey = 'b2001df0bda301f474f11c7060282dba';
     const city = document.querySelector('.search-box input').value;
 
     if (city === '')
         return;
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`)
+    // Llamada a la función de Netlify
+    fetch(`/.netlify/functions/getWeather?city=${city}`)
         .then(response => response.json())
         .then(json => {
-
             if (json.cod === '404') {
-                container.style.height = '400px';
-                weatherBox.style.display = 'none';
-                weatherDetails.style.display = 'none';
-                error404.style.display = 'block';
-                error404.classList.add('fadeIn');
+                handleNotFound();
                 return;
             }
 
             error404.style.display = 'none';
             error404.classList.remove('fadeIn');
 
+            // Esto es para seleccionar elementos de la card
             const image = document.querySelector('.weather-box img');
             const temperature = document.querySelector('.weather-box .temperature');
             const description = document.querySelector('.weather-box .description');
             const humidity = document.querySelector('.weather-details .humidity span');
             const wind = document.querySelector('.weather-details .wind span');
 
-            switch (json.weather[0].main) {
-                case 'Clear':
-                    image.src = 'images/clear.png';
-                    break;
+            updateWeatherImage(json.weather[0].main, image);
+            updateWeatherData(json, temperature, description, humidity, wind);
 
-                case 'Rain':
-                    image.src = 'images/rain.png';
-                    break;
-
-                case 'Snow':
-                    image.src = 'images/snow.png';
-                    break;
-
-                case 'Clouds':
-                    image.src = 'images/cloud.png';
-                    break;
-
-                case 'Mist':
-                    image.src = 'images/mist.png';
-                    break;
-
-                default:
-                    image.src = '';
-            }
-
-            temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
-            description.innerHTML = `${json.weather[0].description}`;
-            humidity.innerHTML = `${json.main.humidity}%`;
-            wind.innerHTML = `${parseInt(json.wind.speed)}Km/h`;
-
+            // Animación de la card
             weatherBox.style.display = '';
             weatherDetails.style.display = '';
             weatherBox.classList.add('fadeIn');
             weatherDetails.classList.add('fadeIn');
             container.style.height = '590px';
-
-
+        })
+        .catch(error => {
+            // Manejo de errores
+            console.error('Error fetching weather data:', error);
+            handleNotFound();
         });
-
-
 });
+
+// Si no se encuentra la ciudad
+function handleNotFound() {
+    container.style.height = '400px';
+    weatherBox.style.display = 'none';
+    weatherDetails.style.display = 'none';
+    error404.style.display = 'block';
+    error404.classList.add('fadeIn');
+}
+
+// Actualizar imagen según el clima
+function updateWeatherImage(weatherType, imageElement) {
+    switch (weatherType) {
+        case 'Clear':
+            imageElement.src = 'images/clear.png';
+            break;
+        case 'Rain':
+            imageElement.src = 'images/rain.png';
+            break;
+        case 'Snow':
+            imageElement.src = 'images/snow.png';
+            break;
+        case 'Clouds':
+            imageElement.src = 'images/cloud.png';
+            break;
+        case 'Mist':
+            imageElement.src = 'images/mist.png';
+            break;
+        default:
+            imageElement.src = '';
+    }
+}
+
+// Actualizar datos del clima en la card
+function updateWeatherData(json, temperatureElement, descriptionElement, humidityElement, windElement) {
+    temperatureElement.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
+    descriptionElement.innerHTML = `${json.weather[0].description}`;
+    humidityElement.innerHTML = `${json.main.humidity}%`;
+    windElement.innerHTML = `${parseInt(json.wind.speed)}Km/h`;
+}
