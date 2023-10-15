@@ -12,10 +12,10 @@ search.addEventListener("click", () => {
   if (city === "") return;
 
   // Llamada a la función de Netlify
-  fetch(`/.netlify/functions/getWeather?city=${city}`)
+  fetch(`/netlify-functions/getWeather?city=${city}`)
     .then((response) => {
-      //console.log("Response: ", response); // Añadido para debugging
-      //console.log("Response.status: ", response.status); // Añadido para debugging
+      console.log("Response: ", response); // Añadido para debugging
+      console.log("Response.status: ", response.status); // Añadido para debugging
       return response.json();
     })
 
